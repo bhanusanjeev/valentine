@@ -95,9 +95,7 @@ body{
 <!-- ================= SUCCESS ================= -->
 <div id="successScreen" class="hidden w-full min-h-screen flex justify-center items-start px-4 pt-16 pb-10">
 
-
-  <div class="glass p-8 rounded-2xl shadow-2xl max-w-md w-full text-center mx-auto">
-
+  <div class="glass p-8 rounded-2xl shadow-2xl max-w-md w-full text-center">
 
     <h1 class="text-3xl font-bold neon mb-4">
       Aweee Naa Chitti Bujji Bangarammm kondaneeee💙
@@ -134,8 +132,8 @@ with love - puppyyluuu ❤️🌍
 </div>
 
 
-<audio id="laugh">
-  <source src="https://www.soundjay.com/human/sounds/giggle-01.mp3">
+<audio id="laugh" preload="auto">
+  <source src="audio/laugh.mp3" type="audio/mpeg">
 </audio>
 
 
@@ -193,23 +191,38 @@ function setInitialPosition(){
 setInitialPosition();
 
 
-// ================= NO BUTTON ACTION =================
-noBtn.addEventListener("mouseover",()=>{
-  const padding=20;
-  const maxX=window.innerWidth-noBtn.offsetWidth-padding;
-  const maxY=window.innerHeight-noBtn.offsetHeight-padding;
+// ================= SAFE MOVEMENT =================
+function moveNoButton(e){
+  if(e) e.preventDefault();
 
-  noBtn.style.left=Math.random()*maxX+"px";
-  noBtn.style.top=Math.random()*maxY+"px";
+  const padding = 10;
+  const btnWidth = noBtn.offsetWidth;
+  const btnHeight = noBtn.offsetHeight;
 
-  noBtn.innerText=texts[t%texts.length];
+  const maxX = window.innerWidth - btnWidth - padding;
+  const maxY = window.innerHeight - btnHeight - padding;
+
+  const x = Math.max(padding, Math.random() * maxX);
+  const y = Math.max(padding, Math.random() * maxY);
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+
+  noBtn.innerText = texts[t % texts.length];
   t++;
 
-  if(damage<emotionalGifs.length){
-    photo.src=emotionalGifs[damage];
+  if(damage < emotionalGifs.length){
+    photo.src = emotionalGifs[damage];
     damage++;
   }
-});
+}
+
+
+// desktop
+noBtn.addEventListener("mouseover", moveNoButton);
+
+// mobile
+noBtn.addEventListener("touchstart", moveNoButton, { passive:false });
 
 
 // ================= YES =================
@@ -218,7 +231,6 @@ document.getElementById("yesBtn").addEventListener("click",()=>{
   document.getElementById("successScreen").classList.remove("hidden");
   noBtn.style.display="none";
 
-  // REMOVE HERO CENTERING
   document.body.classList.remove("items-center","justify-center","h-screen");
 
   document.getElementById("laugh").play();
