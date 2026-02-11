@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💙</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 10% 10%, #1e3a8a, transparent 40%),
+    radial-gradient(circle at 90% 90%, #312e81, transparent 40%),
+    #050816;
+  color:white;
+}
+
+.neon{
+  background:linear-gradient(90deg,#60a5fa,#a78bfa);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+
+.glass{
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,0.1);
+}
+
+#noBtn{
+  position:fixed;
+  z-index:9999;
+  transition:left .35s ease, top .35s ease;
+}
+</style>
+</head>
+
+<body class="flex items-center justify-center h-screen">
+
+
+<!-- ================= HERO ================= -->
+<div id="mainBox" class="text-center w-[95%] max-w-2xl">
+
+  <div class="mb-4 inline-block px-4 py-1 rounded-full glass text-sm text-blue-300">
+    Built with love for my chitti Konda , feel it ✨
+  </div>
+
+  <h1 class="text-4xl md:text-5xl font-extrabold mb-3">
+    There is something <span class="neon">important</span> I want to ask Baa
+  </h1>
+
+  <h2 class="text-lg text-gray-300 mb-6">
+    Chinnoduluuuuu ❤️
+  </h2>
+
+  <p id="typeText" class="text-gray-400 mb-10"></p>
+
+  <div class="glass p-10 rounded-2xl shadow-2xl relative">
+
+    <h3 class="text-2xl font-semibold mb-10">
+     Chitti Talli Will you be my Valentine?
+    </h3>
+
+    <div class="flex justify-center">
+      <button id="yesBtn"
+        class="bg-gradient-to-r from-blue-500 to-indigo-600
+               px-8 py-3 rounded-xl font-semibold
+               hover:scale-105 transition shadow-xl">
+        Huuu puppyyluuu💙
+      </button>
+    </div>
+
+    <div class="mt-10">
+      <img id="photo"
+           class="mx-auto rounded-xl shadow-xl h-44 object-cover border border-indigo-500"/>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ================= NO BUTTON ================= -->
+<button id="noBtn"
+  class="bg-gray-700 px-7 py-3 rounded-xl font-semibold shadow-xl">
+  No puppy
+</button>
+
+
+<!-- ================= SUCCESS ================= -->
+<div id="successScreen" class="hidden w-full min-h-screen flex justify-center items-start px-4 pt-16 pb-10">
+
+
+  <div class="glass p-8 rounded-2xl shadow-2xl max-w-md w-full text-center mx-auto">
+
+
+    <h1 class="text-3xl font-bold neon mb-4">
+      Aweee Naa Chitti Bujji Bangarammm kondaneeee💙
+    </h1>
+
+    <p class="text-blue-300 mb-4 font-semibold">
+      Yayyyy,, I know you are mine 💙
+    </p>
+
+    <img src="images/sucess.gif"
+         class="mx-auto w-56 rounded-xl shadow-xl mb-6"/>
+
+    <div class="mt-4 bg-white/5 border border-white/10 p-5 rounded-xl">
+      <p class="text-gray-300 leading-relaxed">
+        chinnoduluuuu kondaa 🤍 I Love You choo much ❤️‍🔥  
+This might be little note but it holds that emotions and feelings of mine ⭐  
+Craving every day to have you beside and travel every place out there 🌍  
+, Wanna have endless convos with you 🤍 Wanna experience this whole life with you ⚡  
+, Have kids with you , wanna sleep Everynight having you in my Arms 🤍 wanna share meals , clothes ,skins , bed, souls ❤️  
+what not Everything is with you only chitti talli 🤍  
+This is not a valantine gift chinnoduluu ⭐ wanna make you feel soo special and wanna see your reaction for this ❤️‍🔥  
+.  No matter where life takes us 🌍 my favorite place will always be next to you 🤍  
+I am so lucky to have you in my life ⭐ and I promise to make you feel loved and cherished every single day ❤️  
+
+with love - puppyyluuu ❤️🌍
+      </p>
+    </div>
+
+    <h2 class="text-lg text-gray-400 font-semibold mt-5">
+      Akkibhanu ❤️
+    </h2>
+
+  </div>
+</div>
+
+
+<audio id="laugh">
+  <source src="https://www.soundjay.com/human/sounds/giggle-01.mp3">
+</audio>
+
+
+
+<script>
+// ================= TYPEWRITER =================
+const msg="No matter where life goes, my favorite place will always be next to you Kannamaa🌍";
+let i=0;
+function typing(){
+  if(i<msg.length){
+    document.getElementById("typeText").innerHTML+=msg.charAt(i);
+    i++;
+    setTimeout(typing,35);
+  }
+}
+typing();
+
+
+// ================= ELEMENTS =================
+const noBtn=document.getElementById("noBtn");
+const photo=document.getElementById("photo");
+
+photo.src="images/1.gif";
+
+
+// ================= EMOTIONAL GIFS =================
+const emotionalGifs=[
+  "images/1.gif",
+  "images/2.gif",
+  "images/3.gif",
+  "images/4.gif",
+  "images/5.gif"
+];
+let damage=1;
+
+
+// ================= TEXT CHANGES =================
+const texts=[
+  "kondaa re Dhaa 😢",
+  " Kondaa pleachh baa 🥺",
+  " Chitti talliluuu 💔",
+  "Umah icha chinnoduluu chala 😭",
+  " chokkii icha baa😞",
+  " ikkimmm ichaa Dhaa baa 🥹",
+  "Naa bangaram kada Dhaa 😔"
+];
+let t=0;
+
+
+// ================= INITIAL POSITION =================
+function setInitialPosition(){
+  noBtn.style.left=(window.innerWidth*0.6)+"px";
+  noBtn.style.top=(window.innerHeight*0.65)+"px";
+}
+setInitialPosition();
+
+
+// ================= NO BUTTON ACTION =================
+noBtn.addEventListener("mouseover",()=>{
+  const padding=20;
+  const maxX=window.innerWidth-noBtn.offsetWidth-padding;
+  const maxY=window.innerHeight-noBtn.offsetHeight-padding;
+
+  noBtn.style.left=Math.random()*maxX+"px";
+  noBtn.style.top=Math.random()*maxY+"px";
+
+  noBtn.innerText=texts[t%texts.length];
+  t++;
+
+  if(damage<emotionalGifs.length){
+    photo.src=emotionalGifs[damage];
+    damage++;
+  }
+});
+
+
+// ================= YES =================
+document.getElementById("yesBtn").addEventListener("click",()=>{
+  document.getElementById("mainBox").classList.add("hidden");
+  document.getElementById("successScreen").classList.remove("hidden");
+  noBtn.style.display="none";
+
+  // REMOVE HERO CENTERING
+  document.body.classList.remove("items-center","justify-center","h-screen");
+
+  document.getElementById("laugh").play();
+
+  confetti({
+    particleCount:200,
+    spread:100,
+    origin:{y:0.6}
+  });
+});
+</script>
+
+</body>
+</html>
