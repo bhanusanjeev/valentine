@@ -36,7 +36,8 @@ body{
 #noBtn{
   position:fixed;
   z-index:9999;
-  transition:left .35s ease, top .35s ease;
+  transition:left .25s ease, top .25s ease;
+  touch-action:none;
 }
 </style>
 </head>
@@ -62,7 +63,6 @@ body{
   <p id="typeText" class="text-gray-400 mb-10"></p>
 
   <div class="glass p-10 rounded-2xl shadow-2xl relative">
-
     <h3 class="text-2xl font-semibold mb-10">
      Chitti Talli Will you be my Valentine?
     </h3>
@@ -80,7 +80,6 @@ body{
       <img id="photo"
            class="mx-auto rounded-xl shadow-xl h-44 object-cover border border-indigo-500"/>
     </div>
-
   </div>
 </div>
 
@@ -132,6 +131,7 @@ with love - puppyyluuu ❤️🌍
 </div>
 
 
+<!-- ================= AUDIO ================= -->
 <audio id="laugh" preload="auto">
   <source src="audio/laugh.mp3" type="audio/mpeg">
 </audio>
@@ -191,9 +191,9 @@ function setInitialPosition(){
 setInitialPosition();
 
 
-// ================= SAFE MOVEMENT =================
+// ================= UNIVERSAL MOVE =================
 function moveNoButton(e){
-  if(e) e.preventDefault();
+  e.preventDefault();
 
   const padding = 10;
   const btnWidth = noBtn.offsetWidth;
@@ -202,8 +202,8 @@ function moveNoButton(e){
   const maxX = window.innerWidth - btnWidth - padding;
   const maxY = window.innerHeight - btnHeight - padding;
 
-  const x = Math.max(padding, Math.random() * maxX);
-  const y = Math.max(padding, Math.random() * maxY);
+  const x = Math.max(padding, Math.random()*maxX);
+  const y = Math.max(padding, Math.random()*maxY);
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
@@ -218,11 +218,9 @@ function moveNoButton(e){
 }
 
 
-// desktop
-noBtn.addEventListener("mouseover", moveNoButton);
+// ONE EVENT FOR ALL DEVICES
+noBtn.addEventListener("pointerdown", moveNoButton);
 
-// mobile
-noBtn.addEventListener("touchstart", moveNoButton, { passive:false });
 
 
 // ================= YES =================
@@ -233,7 +231,10 @@ document.getElementById("yesBtn").addEventListener("click",()=>{
 
   document.body.classList.remove("items-center","justify-center","h-screen");
 
-  document.getElementById("laugh").play();
+  // SAFE AUDIO PLAY
+  const audio=document.getElementById("laugh");
+  audio.currentTime=0;
+  audio.play().catch(()=>{});
 
   confetti({
     particleCount:200,
